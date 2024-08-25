@@ -1,21 +1,44 @@
-# Ingress
-#Ingress exposes HTTP and HTTPS routes from outside the cluster to services within the cluster.
-# Ingress can provide load balancing, SSL termination, and name-based virtual hosting.
+# # Ingress
+# #Ingress exposes HTTP and HTTPS routes from outside the cluster to services within the cluster.
+# # Ingress can provide load balancing, SSL termination, and name-based virtual hosting.
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: library-json-ingress
+#   annotations:
+#     nginx.ingress.kubernetes.io/rewrite-target: /
+# spec:
+#   rules:
+#   - host: library-json.example.com  # Replace with your domain or IP
+#     http:
+#       paths:
+#       - path: /
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: library-json-service  # Name of the service to route traffic to
+#             port:
+#               number: 80  # Port on which the service is exposed
+
+
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: library-json-ingress
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
+  labels:
+    name: todo-backend-ingress
 spec:
+  ingressClassName: nginx
   rules:
-  - host: library-json.example.com  # Replace with your domain or IP
+  - host: library-json.example.com
     http:
       paths:
-      - path: /
-        pathType: Prefix
+      - pathType: Prefix
+        path: "/"
         backend:
           service:
-            name: library-json-service  # Name of the service to route traffic to
-            port:
-              number: 80  # Port on which the service is exposed
+            name: library-json-service
+            port: 
+              number: 80
