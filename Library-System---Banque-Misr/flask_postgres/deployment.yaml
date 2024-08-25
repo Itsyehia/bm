@@ -14,18 +14,10 @@ spec:
     spec:
       containers:
         - name: library-json-container
-          image: yehiashaikhoun/library_json:latest
-          ports:
-            - containerPort: 5000
-          command: ["flask", "run", "--host=0.0.0.0", "--port=5000"]
-          env:
-            - name: FLASK_APP
-              value: "app.py"
-            - name: FLASK_ENV
-              value: "development"
+          image: sherifemad21/bm-project-last2
           volumeMounts:
             - name: library-json-storage
-              mountPath: /app/data  # Path inside the container where the volume is mounted
+              mountPath: /data
       volumes:
         - name: library-json-storage
           persistentVolumeClaim:

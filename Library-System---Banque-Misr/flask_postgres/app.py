@@ -1,4 +1,5 @@
 import json
+import shutil
 from flask import Flask, render_template, redirect, url_for
 from flask import request, session
 
@@ -6,6 +7,9 @@ app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'  # Replace with a strong random string
 
 DATA_FILE = 'data.json'
+
+def copy_data_file():
+    shutil.copy('/data', DATA_FILE)
 
 def read_data():
     with open(DATA_FILE, 'r') as f:
