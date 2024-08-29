@@ -14,10 +14,10 @@ spec:
     spec:
       containers:
         - name: library-json-container
-          image: sherifemad21/bm-project-last2
+          image: sherifemad21/python:bm-project-v10
           volumeMounts:
             - name: library-json-storage
-              mountPath: /data
+              mountPath: /mnt/data
       volumes:
         - name: library-json-storage
           persistentVolumeClaim:
