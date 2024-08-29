@@ -1,15 +1,26 @@
 import json
 import shutil
+import os
 from flask import Flask, render_template, redirect, url_for
 from flask import request, session
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'  # Replace with a strong random string
 
-DATA_FILE = 'data.json'
+# Create the data.json file in /mnt directory
+DATA_FILE = '/mnt/data/data.json'
 
-def copy_data_file():
-    shutil.copy('/data', DATA_FILE)
+# Ensure the directory exists
+os.makedirs(os.path.dirname(DATA_FILE), exist_ok=True)
+
+if not os.path.exists(DATA_FILE):
+    initial_data = {
+        "books": [],
+        "users": [],
+        "admins": []
+    }
+    with open(DATA_FILE, 'w') as f:
+        json.dump(initial_data, f, indent=4)
 
 def read_data():
     with open(DATA_FILE, 'r') as f:
